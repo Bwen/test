@@ -1,0 +1,14 @@
+on:
+  release:
+    types: [created]
+
+name: test release
+
+jobs:
+  build:
+    name: Build Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo "New release!"
+
