@@ -6,9 +6,9 @@ name: test release
 
 jobs:
   build:
-    name: Build Artifacts
+    name: echo stuff
     runs-on: ubuntu-latest
     steps:
       - name: echo
-        run: echo "New release!"
+        run: echo "New release "${{ github.head_ref }}
 
