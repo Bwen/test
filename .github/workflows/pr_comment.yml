@@ -11,17 +11,20 @@ jobs:
     steps:
       - name: Fetch Branch
         id: fetch
-        uses: actions/github-script@v3
+        uses: actions/github-script@master
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
+          result-encoding: string
           script: |
-            github.pulls.get({
+            let pr = await github.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.issue.number
-            }).then( (pr) => {
-              console.log(`::set-output name=name::${pr.data.head.ref}`);
-            })
+            });
+
+            return pr.data.head.ref
+        run: |
+          echo "::set-output name=name::"${{ steps.fetch.outputs.result }}
 
   comment:
     needs: fetch_branch
