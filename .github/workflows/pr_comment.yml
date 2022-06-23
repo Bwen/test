@@ -44,5 +44,5 @@ jobs:
               issue_number: context.payload.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Blah blah blah blog\nhttps://google.com/?s=${{ needs.branch.outputs.name }}"
+              body: "Blah blah blah blog\nhttps://google.com/?s=${{ needs.fetch_branch.outputs.name }}"
             })
