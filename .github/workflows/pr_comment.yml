@@ -4,13 +4,33 @@ on:
     types: [created, edited]
 
 jobs:
-  comment-test:
+  branch:
+    runs-on: ubuntu-latest
+    outputs:
+      name: ${{ steps.fetch.name }}
+    steps:
+      - name: Fetch Branch
+        id: fetch
+        uses: actions/github-script@v3
+        run: |
+          github.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.issue.number
+          }).then( (pr) => {
+            console.log(`::set-output name=name::${pr.data.head.ref}`);
+          })
+
+  comment:
+    needs: branch
     secrets: inherit
     if: (github.event.issue.pull_request != null) &&  contains(github.event.comment.body, '/blahblah')
     uses: ./.github/workflows/echo_test.yml
+    with:
+      branch: ${{ needs.branch.outputs.name }}
 
   pr-info:
-    needs: comment-test
+    needs: comment
     runs-on: ubuntu-latest
     steps:
       - name: PR Comment
@@ -18,19 +38,9 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            // Get the branch name
-            github.pulls.get({
+            github.issues.createComment({
+              issue_number: context.payload.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.issue.number
-            }).then( (pr) => {
-            
-              // use the branch name to make a comment  on the PR with a Binder badge
-              var BRANCH_NAME = pr.data.head.ref
-              github.issues.createComment({
-                issue_number: context.payload.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `Blah blah blah blog\nhttps://google.com/?s=${BRANCH_NAME}`
-              })
+              body: "Blah blah blah blog\nhttps://google.com/?s=${{ needs.branch.outputs.name }}"
             })

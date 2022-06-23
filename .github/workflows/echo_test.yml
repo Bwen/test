@@ -1,6 +1,11 @@
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      branch:
+        required: false
+        type: string
+        default: master
 
 name: Deploy QA on Demand
 
@@ -11,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ branch }}
 
       - run: |
           echo "Bobby Jones!"
