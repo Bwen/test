@@ -23,7 +23,7 @@ jobs:
             });
 
             return pr.data.head.ref
-        run: |
+        - run: |
           echo "::set-output name=name::"${{ steps.fetch.outputs.result }}
 
   comment:
