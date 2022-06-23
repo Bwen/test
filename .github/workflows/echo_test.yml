@@ -20,5 +20,5 @@ jobs:
           ref: ${{ inputs.branch }}
 
       - run: |
-          echo "Bobby Jones!"
+          echo "Bobby Jones! Is on branch: "${{ inputs.branchName }}
           cat README.md
