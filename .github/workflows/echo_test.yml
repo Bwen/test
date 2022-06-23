@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+  workflow_call:
+
+name: Deploy QA on Demand
+
+jobs:
+  echo-test:
+    name: Echo Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Bobby Jones!"

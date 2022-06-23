@@ -1,0 +1,22 @@
+name: Test PR Comments
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  comment-test:
+    secrets: inherit
+    if: (github.event.issue.pull_request != null) &&  contains(github.event.comment.body, '/blahblah')
+    uses: ./.github/workflows/echo_test.yml
+
+  pr-info:
+    needs: comment-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Comment
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: "This is a comment test!"
+          delete_prev_regex_msg: "This is a comment test!"
