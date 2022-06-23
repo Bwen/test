@@ -7,7 +7,7 @@ jobs:
   fetch_branch:
     runs-on: ubuntu-latest
     outputs:
-      name: ${{ steps.fetch.name }}
+      name: ${{ steps.fetch.outputs.result }}
     steps:
       - name: Fetch Branch
         id: fetch
@@ -21,10 +21,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.payload.issue.number
             });
-
             return pr.data.head.ref
-        - run: |
-          echo "::set-output name=name::"${{ steps.fetch.outputs.result }}
 
   comment:
     needs: fetch_branch
