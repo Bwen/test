@@ -24,7 +24,7 @@ jobs:
             })
 
   comment:
-    needs: branch
+    needs: fetch_branch
     secrets: inherit
     if: (github.event.issue.pull_request != null) &&  contains(github.event.comment.body, '/blahblah')
     uses: ./.github/workflows/echo_test.yml
