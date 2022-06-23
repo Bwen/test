@@ -14,3 +14,4 @@ jobs:
 
       - run: |
           echo "Bobby Jones!"
+          cat README.md
