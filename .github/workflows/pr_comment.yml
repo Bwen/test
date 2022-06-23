@@ -12,14 +12,16 @@ jobs:
       - name: Fetch Branch
         id: fetch
         uses: actions/github-script@v3
-        run: |
-          github.pulls.get({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.payload.issue.number
-          }).then( (pr) => {
-            console.log(`::set-output name=name::${pr.data.head.ref}`);
-          })
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.issue.number
+            }).then( (pr) => {
+              console.log(`::set-output name=name::${pr.data.head.ref}`);
+            })
 
   comment:
     needs: branch
