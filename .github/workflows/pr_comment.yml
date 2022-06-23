@@ -14,9 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PR Comment
-        uses: unsplash/comment-on-pr@v1.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v3
         with:
-          msg: "This is a comment test!"
-          delete_prev_regex_msg: "This is a comment test!"
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            // Get the branch name
+            github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.issue.number
+            }).then( (pr) => {
+            
+              // use the branch name to make a comment  on the PR with a Binder badge
+              var BRANCH_NAME = pr.data.head.ref
+              github.issues.createComment({
+                issue_number: context.payload.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `Blah blah blah blog\nhttps://google.com/?s=${BRANCH_NAME}`
+              })
+            })
