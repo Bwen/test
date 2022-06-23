@@ -32,7 +32,7 @@ jobs:
       branchName: ${{ needs.fetch_branch.outputs.name }}
 
   pr-info:
-    needs: comment
+    needs: fetch_branch
     runs-on: ubuntu-latest
     steps:
       - name: PR Comment
