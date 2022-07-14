@@ -1,0 +1,11 @@
+name: "Secrets Test"
+description: "Run e2e test at qa-automation.local"
+inputs:
+
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: |
+        echo "Bobby Jones! Is on branch: "${{ inputs.branchName }}
+        cat "${{ secrets.BOB_TEST }}"
