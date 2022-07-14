@@ -10,5 +10,4 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo "Bobby Jones! Is on branch: "${{ inputs.branchName }}
-        cat "${{ inputs.secrets.BOB_TEST }}"
+        echo "${{ inputs.secrets.BOB_TEST }}"
