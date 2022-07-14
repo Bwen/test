@@ -11,4 +11,4 @@ runs:
     - shell: bash
       run: |
         echo "Bobby Jones! Is on branch: "${{ inputs.branchName }}
-        cat "${{ secrets.BOB_TEST }}"
+        cat "${{ inputs.secrets.BOB_TEST }}"
