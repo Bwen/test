@@ -1,7 +1,7 @@
 name: "Secrets Test"
 description: "Run e2e test at qa-automation.local"
 inputs:
-  secrets:
+  BOB_TEST:
     required: true
     description: "Pass secrets"
 
@@ -10,4 +10,4 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo "${{ inputs.secrets.BOB_TEST }}"
+        echo "${{ inputs.BOB_TEST }}"
