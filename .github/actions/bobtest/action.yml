@@ -1,6 +1,5 @@
 name: "Secrets Test"
 description: "Run e2e test at qa-automation.local"
-inputs:
 
 runs:
   using: 'composite'
