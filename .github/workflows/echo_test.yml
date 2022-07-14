@@ -13,5 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: ./.github/actions/bobtest
-        with:
+        env:
           BOB_TEST: ${{ secrets.BOB_TEST }}

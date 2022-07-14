@@ -1,13 +1,9 @@
 name: "Secrets Test"
 description: "Run e2e test at qa-automation.local"
-inputs:
-  BOB_TEST:
-    required: true
-    description: "Pass secrets"
 
 runs:
   using: 'composite'
   steps:
     - shell: bash
       run: |
-        echo "${{ inputs.BOB_TEST }}"
+        echo "${{ env.BOB_TEST }}"
