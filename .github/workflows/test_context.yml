@@ -1,0 +1,13 @@
+on:
+  pull_request:
+    types:
+      - closed
+
+name: Testing context
+jobs:
+  bob-context:
+    name: bobby context
+    runs-on: ubuntu-latest
+    steps:
+      - name: output context
+        run: echo '${{ toJSON(github) }}'
