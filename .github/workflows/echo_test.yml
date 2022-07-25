@@ -1,14 +1,10 @@
 on:
-  workflow_dispatch:
-  workflow_call:
-    inputs:
-      branchName:
-        required: false
-        type: string
-        default: master
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - master
 
-name: Deploy QA on Demand
-
+name: Echo Test
 jobs:
   echo-test:
     name: Echo Test
@@ -16,9 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.branchName }}
-
-      - run: |
-          echo "Bobby Jones! Is on branch: "${{ inputs.branchName }}
-          cat README.md
+      - uses: ./.github/actions/bobtest
+        env:
+          BOB_TEST: ${{ secrets.BOB_TEST }}
