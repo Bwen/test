@@ -15,4 +15,4 @@ jobs:
       GITHUB_REPO: test
     steps:
       - name: Test Symfony Command
-        run: /app/bin/console pr:info 2
+        run: docker ps -a
