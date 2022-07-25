@@ -9,6 +9,10 @@ jobs:
   job-container:
     runs-on: ubuntu-latest
     container: pguilbault/symfony-gh-actions:v0.1.2
+    env:
+      GITHUB_USERNAME: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_ORG: Bwen
+      GITHUB_REPO: test
     steps:
       - name: Test Symfony Command
         run: /app/bin/console pr:info 2
