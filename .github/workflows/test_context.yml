@@ -1,13 +1,18 @@
 on:
   pull_request:
-    types:
-      - closed
+    types: [opened, synchronize]
+    branches:
+      - master
 
-name: Testing context
+name: Testing Job Container
 jobs:
-  bob-context:
-    name: bobby context
+  job-container:
     runs-on: ubuntu-latest
+    container: pguilbault/symfony-gh-actions:v0.1.4
+    env:
+      GITHUB_USERNAME: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_ORG: Bwen
+      GITHUB_REPO: test
     steps:
-      - name: output context
-        run: echo '${{ toJSON(github) }}'
+      - name: Test Symfony Command
+        run: docker ps -a
